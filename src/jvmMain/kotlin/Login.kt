@@ -1,21 +1,18 @@
 import java.awt.*
-import javax.swing.*
-import java.io.File
-import javax.imageio.ImageIO
-
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
+import javax.swing.*
 import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.border.*
-
+import java.io.File
+import javax.imageio.ImageIO
 class CustomBorder(private val height: Int) : AbstractBorder() {
-
     override fun paintBorder(c: Component, g: Graphics, x: Int, y: Int, width: Int, height: Int) {
         val g2 = g as Graphics2D
         g2.color = Color(82, 97, 147)
@@ -26,15 +23,12 @@ class CustomBorder(private val height: Int) : AbstractBorder() {
         return Insets(height, 10, height, 10)
     }
 }
-
 class InvalidInput(private val border: Int) : AbstractBorder() {
     override fun paintBorder(c: Component, g: Graphics, x: Int, y: Int, width: Int, height: Int) {
         val g2 = g as Graphics2D
-        g2.color = Color.RED
         g2.stroke = BasicStroke(border.toFloat())
         g2.drawRoundRect(x, y, width - 1, height - 1, 10, 10)
     }
-
     override fun getBorderInsets(c: Component): Insets {
         return Insets(border, border, border, border)
     }
@@ -79,7 +73,7 @@ class Login : JFrame("Login") {
 
                 if (password.isEmpty()) {
                     passwordField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter an password")
+                    JOptionPane.showMessageDialog(this, "you need to enter a password")
                 }
             } else {
                 loginSuccessful = true
@@ -117,7 +111,7 @@ class Login : JFrame("Login") {
         c.fill = GridBagConstraints.NONE
         formContainer.add(loginButton, c)
 
-        val imageFile = File("/home/driven/Downloads/mat-dark.png")
+        val imageFile = File("assets/images/mat-dark.png")
 
         val originalImage: Image = ImageIO.read(imageFile)
 
