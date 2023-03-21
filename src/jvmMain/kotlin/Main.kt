@@ -1,4 +1,3 @@
-
 import java.awt.Color
 import javax.swing.JFrame
 import javax.swing.JOptionPane
@@ -7,6 +6,14 @@ fun main(args: Array<String>) {
     val frame = JFrame("Initial Screen")
     frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
     val login = Login()
+
+    login.linkToSignUp.addActionListener {
+        frame.contentPane.remove(login)
+        SignUp()
+        login.dispose()
+        frame.pack()
+        frame.setLocationRelativeTo(null)
+    }
 
     login.loginButton.addActionListener {
         val home = Home()
@@ -19,7 +26,6 @@ fun main(args: Array<String>) {
             home.depositBtn.addActionListener {
                 home.depositBtn.background = Color.RED
 
-                println("Botão DEPOSIT clicado") // Adiciona uma mensagem de log
                 JOptionPane.showMessageDialog(home.depositBtn, "you need to enter an email")
                 val deposit = Deposit()
                 frame.contentPane.add(deposit)
