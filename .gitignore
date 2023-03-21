@@ -1,5 +1,5 @@
-.idea
-gradle
 .gradle
-build
+.idea
 bin
+build
+gradle
