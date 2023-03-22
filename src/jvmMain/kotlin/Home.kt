@@ -1,6 +1,5 @@
 import javax.swing.*
 import java.awt.*
-
 class CustomButton(text: String) : JButton(text) {
     init {
         isFocusPainted = false
@@ -9,7 +8,6 @@ class CustomButton(text: String) : JButton(text) {
         foreground = Color.WHITE
     }
 }
-
 class Home : JFrame("Home") {
     private val topBar = JPanel()
     private val customersBtn = CustomButton("CUSTOMERS")
@@ -18,7 +16,6 @@ class Home : JFrame("Home") {
     private val supportBtn = CustomButton("SUPPORT")
     private val connectBtn = CustomButton("CONNECT")
     val depositBtn = CustomButton("NEW DEPOSIT")
-
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(800, 600)

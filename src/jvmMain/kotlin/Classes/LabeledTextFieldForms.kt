@@ -5,11 +5,12 @@ import java.awt.GridBagConstraints
 import java.awt.Insets
 import javax.swing.JLabel
 import javax.swing.JPanel
+import javax.swing.JPasswordField
 import javax.swing.JTextField
 class LabeledTextFieldForms(val form: JPanel, labelName: String, val gridx: Int, val gridy: Int) {
 
     val label = JLabel(labelName)
-    val textField = JTextField(20)
+    val textField = if(labelName === "Username") JTextField(20) else JPasswordField(20)
 
     init{
         textField.border = CustomBorder(10)

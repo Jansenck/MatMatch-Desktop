@@ -1,4 +1,3 @@
-import Classes.CustomBorder
 import Classes.InvalidInput
 import Classes.LabeledTextFieldForms
 import Classes.CustomButton
@@ -11,19 +10,12 @@ import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import javax.swing.*
 import javax.swing.JFrame
-import javax.swing.JLabel
 import javax.swing.JPanel
-import java.io.File
-import javax.imageio.ImageIO
-
 class SignUp : JFrame("SignUp") {
-
     val signUpCustomButton = CustomButton("Sign Up")
     val signInCustomButton = CustomButton("Have an Account? Sign In")
     var signUpSuccessful = false
-
     init {
-
         defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         minimumSize = Dimension(500, 700)
 
@@ -88,7 +80,6 @@ class SignUp : JFrame("SignUp") {
         container.weighty = 4.0
         container.anchor = GridBagConstraints.NORTH
         centralPanel.add(formContainer, container)
-
 
         val gbc = GridBagConstraints()
         gbc.gridx = 0

@@ -9,16 +9,14 @@ import javax.swing.JLabel
 import javax.swing.JPanel
 import javax.swing.JTextField
 import javax.swing.border.LineBorder
-class LabeledTextField(val form: JPanel, labelName: String, val gridx: Int, val gridy: Int) {
+class LabeledTextField(val form: JPanel, isSubtitle: Boolean, labelName: String, val gridx: Int, val gridy: Int) {
     val label = JLabel(labelName)
     val textField = JTextField(20)
     init {
-
         if(gridx == 0) {
-            label.preferredSize = label.preferredSize.width.coerceAtLeast(110).let { Dimension(270, 35) }
+            label.preferredSize = label.preferredSize.width.coerceAtLeast(110).let { Dimension(300, 35) }
         } else {
             label.preferredSize = label.preferredSize.width.coerceAtLeast(110).let { Dimension(it +30, 35) }
-            label.minimumSize = label.preferredSize
         }
 
         label.border = BorderFactory.createEmptyBorder(0,10,0,0)
@@ -41,22 +39,23 @@ class LabeledTextField(val form: JPanel, labelName: String, val gridx: Int, val 
         constraints.anchor = GridBagConstraints.EAST
         constraints.weightx = 0.0
         constraints.weighty = 1.0
-        constraints.gridwidth = 1
-        constraints.gridheight = 1
+        constraints.gridwidth = if (isSubtitle || gridx == 0) 2 else 1
+        constraints.gridheight = if (isSubtitle) 8 else 1
+        constraints.fill = GridBagConstraints.BOTH
         form.add(label, constraints)
 
-        constraints.fill = GridBagConstraints.HORIZONTAL
-        constraints.insets = Insets(0, 0, 0, 140)
         constraints.ipadx = 0
         constraints.ipady = 0
 
-        constraints.gridx = gridx + 1
-        constraints.gridy = gridy
-        constraints.anchor = GridBagConstraints.WEST
-        constraints.weightx = 1.0
-        constraints.weighty = 1.0
-        constraints.gridwidth = 1
-        constraints.gridheight = 1
-        form.add(textField, constraints)
+        if(!isSubtitle){
+            constraints.gridx = if(gridx == 0) gridx + 2 else gridx +1
+            constraints.gridy = gridy
+            constraints.anchor = GridBagConstraints.EAST
+            constraints.weightx = 1.0
+            constraints.weighty = 1.0
+            constraints.gridwidth = if(gridx == 0) 5 else 1
+            constraints.gridheight = 1
+            form.add(textField, constraints)
+        }
     }
 }

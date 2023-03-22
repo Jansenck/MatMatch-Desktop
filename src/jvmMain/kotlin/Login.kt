@@ -26,7 +26,7 @@ class Login : JFrame("Login") {
         formContainer.background = Color(255, 255, 255)
 
         val username = LabeledTextFieldForms(formContainer, "Username", 0 ,0)
-        val password = LabeledTextFieldForms(formContainer, "Username", 0 ,2)
+        val password = LabeledTextFieldForms(formContainer, "Password", 0 ,2)
 
         val constraintsForm = GridBagConstraints()
 
