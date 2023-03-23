@@ -1,6 +1,8 @@
 import Classes.InvalidInput
 import Classes.LabeledTextFieldForms
 import Classes.CustomButton
+import Classes.SignupValidator
+
 import java.awt.*
 import java.awt.Color
 import java.awt.Dimension
@@ -26,32 +28,6 @@ class SignUp : JFrame("SignUp") {
         val username = LabeledTextFieldForms(formContainer, "Username", 0 ,0)
         val password = LabeledTextFieldForms(formContainer, "Password", 0 ,2)
         val confirmPassword = LabeledTextFieldForms(formContainer, "Confirm Password", 0 ,4)
-
-        signUpCustomButton.addActionListener {
-            val usernameField = username.textField
-            val passwordField = password.textField
-            val confirmPassword = confirmPassword.textField
-
-            if (usernameField.text.isEmpty() || passwordField.text.isEmpty() || confirmPassword.text.isEmpty()) {
-                if (usernameField.text.isEmpty()) {
-                    usernameField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter an username")
-                }
-
-                if (passwordField.text.isEmpty()) {
-                    passwordField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter a password")
-                }
-
-                if (passwordField.text.isEmpty()){
-                    passwordField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to confirm password")
-                }
-            } else {
-                signUpSuccessful = true
-                dispose()
-            }
-        }
 
         val constraintsButton = GridBagConstraints()
 
@@ -103,6 +79,41 @@ class SignUp : JFrame("SignUp") {
         contentPane.minimumSize = Dimension(400, 700)
 
         val buttonDisabler = ButtonDisabler(signUpCustomButton, listOf(username.textField, password.textField, confirmPassword.textField))
+        val validateSignUp = SignupValidator(username.textField,password.textField, confirmPassword.textField);
+
+        signUpCustomButton.addActionListener {
+            val usernameField = username.textField
+            val passwordField = password.textField
+            val confirmPasswordField = confirmPassword.textField
+
+            val checkPasswordsMatch = PasswordsMatch(password.textField, confirmPassword.textField).isMatch();
+
+            if (usernameField.text.isEmpty() || passwordField.text.isEmpty() || confirmPasswordField.text.isEmpty() || !checkPasswordsMatch) {
+
+                if (usernameField.text.isEmpty()) {
+                    usernameField.border = InvalidInput(1)
+                    JOptionPane.showMessageDialog(this, "You need to create an username")
+                }
+
+                if (passwordField.text.isEmpty()) {
+                    passwordField.border = InvalidInput(1)
+                    JOptionPane.showMessageDialog(this, "You need to create a password")
+                }
+
+                if (passwordField.text.isEmpty()){
+                    passwordField.border = InvalidInput(1)
+                    JOptionPane.showMessageDialog(this, "You need to confirm password")
+                }
+
+                if (!checkPasswordsMatch){
+                    JOptionPane.showMessageDialog(this, "Passwords do not match")
+                }
+
+            } else {
+                signUpSuccessful = true
+                dispose()
+            }
+        }
 
         addComponentListener(object : ComponentAdapter() {
             override fun componentResized(e: ComponentEvent) {
