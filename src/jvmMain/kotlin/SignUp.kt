@@ -12,7 +12,7 @@ import javax.swing.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 class SignUp : JFrame("SignUp") {
-    val signUpCustomButton = CustomButton("Sign Up")
+    val signUpCustomButton = CustomButton("Sign Up").apply { isEnabled = false }
     val signInCustomButton = CustomButton("Have an Account? Sign In")
     var signUpSuccessful = false
     init {
@@ -30,15 +30,22 @@ class SignUp : JFrame("SignUp") {
         signUpCustomButton.addActionListener {
             val usernameField = username.textField
             val passwordField = password.textField
-            if (usernameField.text.isEmpty() || passwordField.text.isEmpty()) {
+            val confirmPassword = confirmPassword.textField
+
+            if (usernameField.text.isEmpty() || passwordField.text.isEmpty() || confirmPassword.text.isEmpty()) {
                 if (usernameField.text.isEmpty()) {
                     usernameField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter an email")
+                    JOptionPane.showMessageDialog(this, "you need to enter an username")
                 }
 
                 if (passwordField.text.isEmpty()) {
                     passwordField.border = InvalidInput(1)
                     JOptionPane.showMessageDialog(this, "you need to enter a password")
+                }
+
+                if (passwordField.text.isEmpty()){
+                    passwordField.border = InvalidInput(1)
+                    JOptionPane.showMessageDialog(this, "you need to confirm password")
                 }
             } else {
                 signUpSuccessful = true
@@ -46,57 +53,61 @@ class SignUp : JFrame("SignUp") {
             }
         }
 
-        val constraints = GridBagConstraints()
+        val constraintsButton = GridBagConstraints()
 
-        constraints.gridx = 0
-        constraints.gridy = 6
-        constraints.insets = Insets(10, 10, 10, 10)
-        constraints.anchor = GridBagConstraints.CENTER
-        constraints.fill = GridBagConstraints.NONE
-        formContainer.add(signUpCustomButton, constraints)
+        constraintsButton.gridx = 0
+        constraintsButton.gridy = 6
+        constraintsButton.insets = Insets(10, 10, 10, 10)
+        constraintsButton.anchor = GridBagConstraints.CENTER
+        constraintsButton.fill = GridBagConstraints.NONE
+        formContainer.add(signUpCustomButton, constraintsButton)
 
-        constraints.gridx = 0
-        constraints.gridy = 7
-        constraints.insets = Insets(10, 10, 10, 10)
-        constraints.anchor = GridBagConstraints.CENTER
-        constraints.fill = GridBagConstraints.NONE
-        formContainer.add(signInCustomButton, constraints)
+        constraintsButton.gridx = 0
+        constraintsButton.gridy = 7
+        constraintsButton.insets = Insets(10, 10, 10, 10)
+        constraintsButton.anchor = GridBagConstraints.CENTER
+        constraintsButton.fill = GridBagConstraints.NONE
+        formContainer.add(signInCustomButton, constraintsButton)
 
         val logoPanel = LogoImage()
 
         val centralPanel = JPanel(GridBagLayout())
-        val container = GridBagConstraints()
+        val formSignUpConstraints = GridBagConstraints()
         centralPanel.background = Color.WHITE
 
-        container.gridx = 0
-        container.gridy = 0
-        container.weighty = 1.0
-        container.anchor = GridBagConstraints.NORTH
-        container.insets = Insets(40,10,10,10)
-        centralPanel.add(logoPanel, container)
+        formSignUpConstraints.gridx = 0
+        formSignUpConstraints.gridy = 0
+        formSignUpConstraints.weighty = 1.0
+        formSignUpConstraints.anchor = GridBagConstraints.NORTH
+        formSignUpConstraints.insets = Insets(40,10,10,10)
+        constraintsButton.fill = GridBagConstraints.NONE
+        centralPanel.add(logoPanel, formSignUpConstraints)
 
-        container.gridx = 0
-        container.gridy = 1
-        container.weighty = 4.0
-        container.anchor = GridBagConstraints.NORTH
-        centralPanel.add(formContainer, container)
+        formSignUpConstraints.gridx = 0
+        formSignUpConstraints.gridy = 1
+        formSignUpConstraints.weighty = 4.0
+        formSignUpConstraints.anchor = GridBagConstraints.NORTH
+        formSignUpConstraints.insets = Insets(10, 10, 10, 10)
+        formSignUpConstraints.fill = GridBagConstraints.NONE
+        centralPanel.add(formContainer, formSignUpConstraints)
 
-        val gbc = GridBagConstraints()
-        gbc.gridx = 0
-        gbc.gridy = 0
-        gbc.weightx = 1.0
-        gbc.weighty = 1.0
-        gbc.fill = GridBagConstraints.BOTH
+        val centralConstraints = GridBagConstraints()
+        centralConstraints.gridx = 0
+        centralConstraints.gridy = 0
+        centralConstraints.weightx = 1.0
+        centralConstraints.weighty = 2.0
+        centralConstraints.fill = GridBagConstraints.BOTH
 
         contentPane.layout = GridBagLayout()
-        contentPane.add(centralPanel, gbc)
+        contentPane.add(centralPanel, centralConstraints)
         contentPane.minimumSize = Dimension(400, 700)
+
+        val buttonDisabler = ButtonDisabler(signUpCustomButton, listOf(username.textField, password.textField, confirmPassword.textField))
 
         addComponentListener(object : ComponentAdapter() {
             override fun componentResized(e: ComponentEvent) {
                 val width = centralPanel.size.width
                 val height = centralPanel.size.height
-
                 val resizeWindow: Boolean = (width > 650 || height > 550)
                 isResizable = resizeWindow
             }
@@ -104,7 +115,6 @@ class SignUp : JFrame("SignUp") {
 
         pack()
         setLocationRelativeTo(null)
-        signUpCustomButton.isEnabled = true
         isVisible = true
     }
 }

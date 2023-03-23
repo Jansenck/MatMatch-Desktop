@@ -7,6 +7,7 @@ import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.ImageIcon
 import javax.swing.JPanel
+
 class LogoImage() : JPanel(BorderLayout()) {
     private val maxWidth: Int = 150
     private val maxHeight: Int = 150
@@ -22,6 +23,8 @@ class LogoImage() : JPanel(BorderLayout()) {
     init {
         preferredSize = Dimension(maxWidth, maxHeight)
         background = Color.WHITE
-        add(imageLabel, BorderLayout.CENTER)
+        val centerPanel = JPanel(BorderLayout())
+        add(centerPanel, BorderLayout.CENTER)
+        centerPanel.add(imageLabel, BorderLayout.CENTER)
     }
 }

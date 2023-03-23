@@ -14,7 +14,7 @@ import javax.swing.JPanel
 class Login : JFrame("Login") {
 
     val formContainer = JPanel(GridBagLayout())
-    val loginButton = CustomButton("Login")
+    val loginButton = CustomButton("Login").apply { isEnabled = false }
     val linkToSignUp = CustomButton("Create Account")
     val loginFrame = this
     var loginSuccessful = false
@@ -45,22 +45,24 @@ class Login : JFrame("Login") {
         formContainer.add(linkToSignUp, constraintsForm)
 
         val logoPanel = LogoImage()
-
         val centralPanel = JPanel(GridBagLayout())
-        val constraintsFormContainer = GridBagConstraints()
         centralPanel.background = Color.WHITE
 
+        val constraintsFormContainer = GridBagConstraints()
         constraintsFormContainer.gridx = 0
         constraintsFormContainer.gridy = 0
         constraintsFormContainer.weighty = 1.0
-        constraintsFormContainer.insets = Insets(40,10,10,10)
         constraintsFormContainer.anchor = GridBagConstraints.NORTH
+        constraintsFormContainer.insets = Insets(40,10,10,10)
+        constraintsFormContainer.fill = GridBagConstraints.NONE
         centralPanel.add(logoPanel, constraintsFormContainer)
 
         constraintsFormContainer.gridx = 0
         constraintsFormContainer.gridy = 1
         constraintsFormContainer.weighty = 3.0
         constraintsFormContainer.anchor = GridBagConstraints.NORTH
+        constraintsFormContainer.insets = Insets(10, 10, 10, 10)
+        constraintsFormContainer.fill = GridBagConstraints.NONE
         centralPanel.add(formContainer, constraintsFormContainer)
 
         val gbc = GridBagConstraints()
@@ -74,16 +76,16 @@ class Login : JFrame("Login") {
         contentPane.add(centralPanel, gbc)
         contentPane.minimumSize = Dimension(400, 300)
 
+        val buttonDisabler = ButtonDisabler(loginButton, listOf(username.textField, password.textField))
+
         loginButton.addActionListener {
             val usernameField = username.textField
             val passwordField = password.textField
 
-            // TODO: Verificar as credenciais do usuário
-
             if (usernameField.text.isEmpty() || passwordField.text.isEmpty()) {
                 if (usernameField.text.isEmpty()) {
                     usernameField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter an email")
+                    JOptionPane.showMessageDialog(this, "you need to enter an username")
                 }
 
                 if (passwordField.text.isEmpty()) {
@@ -107,7 +109,6 @@ class Login : JFrame("Login") {
 
         pack()
         setLocationRelativeTo(null)
-        loginButton.isEnabled = true
         isVisible = true
     }
 }
