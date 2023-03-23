@@ -9,8 +9,13 @@ import javax.swing.JPanel
 class CustomButton(text: String) : JButton(text){
     init {
         border = CustomBorder(10)
-        background = Color(82, 97, 147)
         foreground = Color.WHITE
         preferredSize = Dimension(300, 40)
+
+        background = if(text === "Login" || text === "Sign Up"){
+            Color(127, 128, 175)
+        } else {
+            Color(82, 97, 147)
+        }
     }
 }
