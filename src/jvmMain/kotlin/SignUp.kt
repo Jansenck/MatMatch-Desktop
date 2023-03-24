@@ -1,7 +1,6 @@
-import Classes.InvalidInput
 import Classes.LabeledTextFieldForms
 import Classes.CustomButton
-import Classes.SignupValidator
+import Classes.InputValidator
 
 import java.awt.*
 import java.awt.Color
@@ -10,13 +9,12 @@ import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
-import javax.swing.*
 import javax.swing.JFrame
+import javax.swing.JOptionPane
 import javax.swing.JPanel
 class SignUp : JFrame("SignUp") {
     val signUpCustomButton = CustomButton("Sign Up").apply { isEnabled = false }
     val signInCustomButton = CustomButton("Have an Account? Sign In")
-    var signUpSuccessful = false
     init {
         defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         minimumSize = Dimension(500, 700)
@@ -79,40 +77,22 @@ class SignUp : JFrame("SignUp") {
         contentPane.minimumSize = Dimension(400, 700)
 
         val buttonDisabler = ButtonDisabler(signUpCustomButton, listOf(username.textField, password.textField, confirmPassword.textField))
-        val validateSignUp = SignupValidator(username.textField,password.textField, confirmPassword.textField);
+        val signUpValidator = InputValidator(username.textField,password.textField, confirmPassword.textField);
 
         signUpCustomButton.addActionListener {
-            val usernameField = username.textField
-            val passwordField = password.textField
-            val confirmPasswordField = confirmPassword.textField
-
             val checkPasswordsMatch = PasswordsMatch(password.textField, confirmPassword.textField).isMatch();
-
-            if (usernameField.text.isEmpty() || passwordField.text.isEmpty() || confirmPasswordField.text.isEmpty() || !checkPasswordsMatch) {
-
-                if (usernameField.text.isEmpty()) {
-                    usernameField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "You need to create an username")
-                }
-
-                if (passwordField.text.isEmpty()) {
-                    passwordField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "You need to create a password")
-                }
-
-                if (passwordField.text.isEmpty()){
-                    passwordField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "You need to confirm password")
-                }
-
-                if (!checkPasswordsMatch){
-                    JOptionPane.showMessageDialog(this, "Passwords do not match")
-                }
-
-            } else {
-                signUpSuccessful = true
-                dispose()
+            if(signUpValidator.validateSignUp()){
+                JOptionPane.showMessageDialog(this, "Congratulations! Your account has been created successfully.")
+                val loginScreen = Login()
+                loginScreen.isVisible = true
+                isVisible = false
             }
+        }
+
+        signInCustomButton.addActionListener {
+            val loginScreen = Login()
+            loginScreen.isVisible = true
+            isVisible = false
         }
 
         addComponentListener(object : ComponentAdapter() {

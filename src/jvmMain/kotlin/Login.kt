@@ -1,5 +1,5 @@
-import Classes.InvalidInput
 import Classes.CustomButton
+import Classes.InputValidator
 import Classes.LabeledTextFieldForms
 import java.awt.*
 import java.awt.Color
@@ -81,21 +81,21 @@ class Login : JFrame("Login") {
         loginButton.addActionListener {
             val usernameField = username.textField
             val passwordField = password.textField
+            val validLoginInputs = InputValidator(usernameField, passwordField, passwordField).validateLogin();
 
-            if (usernameField.text.isEmpty() || passwordField.text.isEmpty()) {
-                if (usernameField.text.isEmpty()) {
-                    usernameField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter an username")
-                }
-
-                if (passwordField.text.isEmpty()) {
-                    passwordField.border = InvalidInput(1)
-                    JOptionPane.showMessageDialog(this, "you need to enter a password")
-                }
+            if (validLoginInputs) {
+                val homeScreen = Home()
+                homeScreen.isVisible = true
+                isVisible = false
             } else {
-                loginSuccessful = true
-                dispose()
+                JOptionPane.showMessageDialog(this, "Login error, please try again")
             }
+        }
+
+        linkToSignUp.addActionListener {
+            val signUpScreen = SignUp()
+            signUpScreen.isVisible = true
+            isVisible = false
         }
 
         addComponentListener(object : ComponentAdapter() {

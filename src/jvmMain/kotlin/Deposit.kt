@@ -1,6 +1,5 @@
 import java.awt.*
 import javax.swing.*
-import javax.swing.border.LineBorder
 import Classes.SessionPanel
 import Classes.LabeledTextField
 class Deposit : JFrame() {
@@ -71,3 +70,5 @@ class Deposit : JFrame() {
         }
     }
 }
+
+

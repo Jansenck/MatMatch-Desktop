@@ -15,7 +15,7 @@ class Home : JFrame("Home") {
     private val aboutBtn = CustomButton("ABOUT")
     private val supportBtn = CustomButton("SUPPORT")
     private val connectBtn = CustomButton("CONNECT")
-    val depositBtn = CustomButton("NEW DEPOSIT")
+    val newDepositButton = CustomButton("NEW DEPOSIT")
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         size = Dimension(800, 600)
@@ -36,16 +36,16 @@ class Home : JFrame("Home") {
         topBar.add(Box.createHorizontalGlue())
         topBar.add(connectBtn)
         topBar.add(Box.createHorizontalGlue())
-        topBar.add(depositBtn)
+        topBar.add(newDepositButton)
         topBar.add(Box.createHorizontalGlue())
         topBar.add(Box.createRigidArea(Dimension(20, 0)))
 
         add(topBar, BorderLayout.NORTH)
 
-        depositBtn.addActionListener{
-            val deposit = Deposit()
-            dispose()
-            deposit.isVisible = true
+        newDepositButton.addActionListener{
+            val depositScreen = Deposit()
+            depositScreen.isVisible = true
+            isVisible = false
         }
 
         isVisible = true
