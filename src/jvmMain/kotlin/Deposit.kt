@@ -1,6 +1,5 @@
 import java.awt.*
 import javax.swing.*
-import Classes.SessionPanel
 import Classes.LabeledTextField
 class Deposit : JFrame() {
     init {
@@ -11,29 +10,18 @@ class Deposit : JFrame() {
         val container = JPanel(GridBagLayout())
         container.layout = BoxLayout(container, BoxLayout.Y_AXIS)
 
-        val sessionMaterialInfo = SessionPanel("MATERIAL INFORMATION")
+        val formMaterialInfo = JPanel(GridBagLayout())
+
+        val sessionMaterialInfo = SessionPanel("MATERIAL INFORMATION", formMaterialInfo)
         container.add(sessionMaterialInfo)
 
-        val formMaterialInfo = JPanel(GridBagLayout())
         formMaterialInfo.isOpaque = true
         formMaterialInfo.preferredSize = Dimension(800, 325)
         formMaterialInfo.minimumSize = Dimension(container.preferredSize.width, 325)
         formMaterialInfo.maximumSize = Dimension(container.preferredSize.width, 325)
 
-        val sessionTestedMaterial = SessionPanel("TESTED MATERIAL")
-        val sessionTestConditions = SessionPanel("TESTING CONDITIONS AND SPECIMEN INFORMATION")
-        val sessionMonotonicProperties= SessionPanel("MONOTONIC PROPERTIES")
-        val sessionMonotonicParameters = SessionPanel("MONOTONIC STRESS-STRAIN PARAMETERS AND CURVES - RAMBERG-OSGOOD MODEL")
-
         container.add(formMaterialInfo)
         container.add(Box.createVerticalStrut(10))
-        container.add(sessionTestedMaterial)
-        container.add(Box.createVerticalStrut(10))
-        container.add(sessionTestConditions)
-        container.add(Box.createVerticalStrut(10))
-        container.add(sessionMonotonicProperties)
-        container.add(Box.createVerticalStrut(10))
-        container.add(sessionMonotonicParameters)
 
         val subtitleMaterialDesignation = LabeledTextField(formMaterialInfo, true,"Material Designation", 0, 0)
         val labeledTextFieldDesignation = LabeledTextField(formMaterialInfo, false, "Designation additional remarks", 0, 9)

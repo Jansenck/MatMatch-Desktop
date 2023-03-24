@@ -23,6 +23,7 @@ class LabeledTextField(val form: JPanel, isSubtitle: Boolean, labelName: String,
             LineBorder(Color(152,188,215), 1), BorderFactory.createEmptyBorder(5, 5, 5, 5)
         )
         label.background = 	Color(236,245,248)
+        label.foreground = Color(51,83,127)
         label.isOpaque = true
 
         textField.preferredSize = Dimension(0,35)
