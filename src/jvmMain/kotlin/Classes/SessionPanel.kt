@@ -7,14 +7,14 @@ import java.awt.event.ActionListener
 import javax.swing.*
 import javax.swing.border.LineBorder
 
-class SessionPanel(sessionTitle: String, form: JPanel) : JPanel(BorderLayout()) {
+class SessionPanel(subSessionTitle: String, form: JPanel) : JPanel(BorderLayout()) {
 
     init {
-        preferredSize = Dimension(Int.MAX_VALUE, 30)
-        minimumSize = Dimension(Int.MAX_VALUE, 30)
-        maximumSize = Dimension(Int.MAX_VALUE, 30)
+        preferredSize = Dimension(Int.MAX_VALUE, 35)
+        minimumSize = Dimension(Int.MAX_VALUE, 35)
+        maximumSize = Dimension(Int.MAX_VALUE, 35)
 
-        val label = createTitleLabel(sessionTitle)
+        val label = createTitleLabel(subSessionTitle)
         val toggleButton = createToggleButton()
 
         val buttonPanel = createButtonPanel(toggleButton)
@@ -25,8 +25,10 @@ class SessionPanel(sessionTitle: String, form: JPanel) : JPanel(BorderLayout()) 
         background = Color(181,208,227)
 
         border = BorderFactory.createCompoundBorder(
-            LineBorder(Color(150,185,212), 1), BorderFactory.createEmptyBorder(5, 5, 5, 5)
+            LineBorder(Color(150,185,212), 1), BorderFactory.createEmptyBorder(5, 15, 5, 5)
         )
+
+
 
         toggleButton.addActionListener(SessionPanelToggleButtonListener(form))
     }

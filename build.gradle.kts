@@ -2,7 +2,6 @@
 plugins {
     kotlin("multiplatform") version "1.8.0"
     id("org.openjfx.javafxplugin") version "0.0.10"
-    //id("org.jetbrains.kotlin.jvm") version "1.6.10"
     application
 }
 
