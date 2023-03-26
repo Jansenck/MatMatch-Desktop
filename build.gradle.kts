@@ -54,6 +54,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation(kotlin("test-common"))
             }
         }
         val jvmMain by getting {
