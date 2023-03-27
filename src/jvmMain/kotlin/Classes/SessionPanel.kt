@@ -14,6 +14,8 @@ class SessionPanel(subSessionTitle: String, form: JPanel) : JPanel(BorderLayout(
         minimumSize = Dimension(Int.MAX_VALUE, 35)
         maximumSize = Dimension(Int.MAX_VALUE, 35)
 
+        form.isVisible = false;
+
         val label = createTitleLabel(subSessionTitle)
         val toggleButton = createToggleButton()
 
@@ -27,9 +29,6 @@ class SessionPanel(subSessionTitle: String, form: JPanel) : JPanel(BorderLayout(
         border = BorderFactory.createCompoundBorder(
             LineBorder(Color(150,185,212), 1), BorderFactory.createEmptyBorder(5, 15, 5, 5)
         )
-
-
-
         toggleButton.addActionListener(SessionPanelToggleButtonListener(form))
     }
 

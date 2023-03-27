@@ -1,5 +1,7 @@
+import java.awt.BorderLayout
+import java.awt.Color
+import java.awt.Dimension
 import javax.swing.*
-import java.awt.*
 class CustomButton(text: String) : JButton(text) {
     init {
         isFocusPainted = false

@@ -2,10 +2,9 @@ package Classes
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.Insets
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
-import javax.swing.*
+import javax.swing.BorderFactory
+import javax.swing.JLabel
+import javax.swing.JPanel
 import javax.swing.border.LineBorder
 
 class SessionMaterialsData(sessionTitle: String) : JPanel(BorderLayout()) {
@@ -21,7 +20,7 @@ class SessionMaterialsData(sessionTitle: String) : JPanel(BorderLayout()) {
         background = Color(27,90,161)
 
         border = BorderFactory.createCompoundBorder(
-            LineBorder(Color(19,54,96), 1), BorderFactory.createEmptyBorder(5, 15, 5, 5)
+            LineBorder(Color(19,54,96), 2), BorderFactory.createEmptyBorder(5, 15, 5, 5)
         )
 
     }

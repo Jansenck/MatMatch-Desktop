@@ -3,7 +3,11 @@ import Classes.LabelSingle
 import Classes.LabeledTextFieldColumn
 import Classes.LabeledTextFieldRow
 import Classes.SessionMaterialsData
-import java.awt.*
+import Classes.CustomButtonPanel
+import java.awt.BorderLayout
+import java.awt.Dimension
+import java.awt.GridBagLayout
+import java.awt.Toolkit
 import javax.swing.*
 
 class Deposit : JFrame() {
@@ -17,18 +21,20 @@ class Deposit : JFrame() {
 
         val container = JPanel(GridBagLayout())
         container.layout = BoxLayout(container, BoxLayout.Y_AXIS)
-        container.preferredSize = Dimension(screenSize.width, screenSize.height -100)
+        container.preferredSize = Dimension(screenSize.width, screenSize.height -120)
 
         val scrollPane = JScrollPane(container)
         scrollPane.verticalScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
+
+       // container.border = BorderFactory.createEmptyBorder(0, 5, 0, 2)
 
         val sessionGeneralInformation = SessionMaterialsData("Session General Information");
         container.add(sessionGeneralInformation)
         container.add(Box.createVerticalStrut(10))
 
         val formMaterialInfo = JPanel(GridBagLayout())
-        formMaterialInfo.minimumSize = Dimension(container.preferredSize.width, 300)
-        formMaterialInfo.maximumSize = Dimension(container.preferredSize.width, 300)
+        formMaterialInfo.minimumSize = Dimension(container.preferredSize.width, 350)
+        formMaterialInfo.maximumSize = Dimension(container.preferredSize.width, 350)
 
         val sessionMaterialInfo = SessionPanel("MATERIAL INFORMATION", formMaterialInfo)
         container.add(sessionMaterialInfo)
@@ -57,11 +63,11 @@ class Deposit : JFrame() {
         val labeledTextFieldWNR = LabeledTextFieldRow(formMaterialInfo, false,"W.Nr.", 4, 5)
         val labeledTextFieldBS = LabeledTextFieldRow(formMaterialInfo, false,"BS", 4, 6)
         val labeledTextFieldOtherMaterialInfo = LabeledTextFieldRow(formMaterialInfo, false,"Other", 4, 7)
+        val formMaterialInfoButton = CustomButtonPanel(formMaterialInfo, "MaterialInfoButton", 5, 13)
 
         val formTestedMaterial = JPanel(GridBagLayout())
-        formTestedMaterial.background = Color.GREEN
-        formTestedMaterial.minimumSize = Dimension(container.preferredSize.width, 475)
-        formTestedMaterial.maximumSize = Dimension(container.preferredSize.width, 475)
+        formTestedMaterial.minimumSize = Dimension(container.preferredSize.width, 545)
+        formTestedMaterial.maximumSize = Dimension(container.preferredSize.width, 545)
 
         val sessionTestedMaterial = SessionPanel("TESTED MATERIAL", formTestedMaterial)
         container.add(sessionTestedMaterial)
@@ -82,7 +88,6 @@ class Deposit : JFrame() {
         val labeledTextFieldsVickers= LabelSingle(formTestedMaterial, "labeledTextFields","Vickers", 0, 15)
         val labeledTextFieldsRockwell= LabelSingle(formTestedMaterial, "labeledTextFields","Rockwell", 0, 16)
         val labeledTextFieldsAdditionalRemarks= LabelSingle(formTestedMaterial, "labeledTextFields","Additional remarks:", 0, 17)
-
         val labeledTextFieldCarbon = LabeledTextFieldColumn(formTestedMaterial, false, "C", 2, 0)
         val labeledTextFieldSilicon = LabeledTextFieldColumn(formTestedMaterial, false,"Si", 3, 0)
         val labeledTextFieldManganese = LabeledTextFieldColumn(formTestedMaterial, false,"Mn", 4, 0)
@@ -102,14 +107,17 @@ class Deposit : JFrame() {
         val nullSpace1 = LabeledTextFieldColumn(formTestedMaterial, false,"", 6, 4)
         val nullSpace2 = LabeledTextFieldColumn(formTestedMaterial, false,"", 7, 4)
         val labeledTextFieldOtherMaterialTested = LabeledTextFieldColumn(formTestedMaterial, false,"Other", 2, 6)
+        val buttonMaterialInfo = CustomButtonPanel(formTestedMaterial, "TestedMaterial", 7, 18)
+
+        //TODO: acho que o erro nas dimensoes do button é causada porque nessas configurações ele tem sempre o mesmo tamanho da celula.
 
         val sessionMonotonicData = SessionMaterialsData("MONOTONIC DATA - AXIAL LOADING");
         container.add(sessionMonotonicData)
         container.add(Box.createVerticalStrut(10))
 
         val formTestingConditions = JPanel(GridBagLayout())
-        formTestingConditions.minimumSize = Dimension(container.preferredSize.width, 125)
-        formTestingConditions.maximumSize = Dimension(container.preferredSize.width, 125)
+        formTestingConditions.minimumSize = Dimension(container.preferredSize.width, 175)
+        formTestingConditions.maximumSize = Dimension(container.preferredSize.width, 175)
 
         val subSessionTestConditions = SessionPanel("TESTING CONDITIONS AND SPECIMEN INFORMATION", formTestingConditions)
         container.add(subSessionTestConditions)
@@ -123,10 +131,11 @@ class Deposit : JFrame() {
         val labeledTextFieldLoadingControl = LabeledTextFieldRow(formTestingConditions, false,"Loading control", 0, 3)
         val labeledTextFieldSpecimen  = LabeledTextFieldRow(formTestingConditions, false,"Specimen", 0, 4)
         val labeledTextFieldAdditionalRemarks  = LabeledTextFieldRow(formTestingConditions, false,"Additional remarks", 0, 4)
+        val buttonTestingConditions = CustomButtonPanel(formTestingConditions, "TestingConditions", 4, 5)
 
         val formMonotonicProperties = JPanel(GridBagLayout())
-        formMonotonicProperties.minimumSize = Dimension(container.preferredSize.width, 200)
-        formMonotonicProperties.maximumSize = Dimension(container.preferredSize.width, 200)
+        formMonotonicProperties.minimumSize = Dimension(container.preferredSize.width, 250)
+        formMonotonicProperties.maximumSize = Dimension(container.preferredSize.width, 250)
 
         val subSessionMonotonicProperties= SessionPanel("MONOTONIC PROPERTIES", formMonotonicProperties)
         container.add(subSessionMonotonicProperties)
@@ -142,10 +151,11 @@ class Deposit : JFrame() {
         val labeledTextFieldREductionAreaFracture  = LabeledTextFieldRow(formMonotonicProperties, false,"Reduction of area at fracture, Z (RA) (%) ", 0, 5)
         val labeledTextFieldFractureStress  = LabeledTextFieldRow(formMonotonicProperties, false,"True fracture stress, σ f (Nmm-2)", 0, 6)
         val labeledTextFieldFractureStrain  = LabeledTextFieldRow(formMonotonicProperties, false,"True fracture strain, ε f", 0, 7)
+        val buttonMonotonicProperties = CustomButtonPanel(formMonotonicProperties, "MonotonicProperties", 7, 8)
 
         val formMonotonicStress = JPanel(GridBagLayout())
-        formMonotonicStress.minimumSize = Dimension(container.preferredSize.width, 50)
-        formMonotonicStress.maximumSize = Dimension(container.preferredSize.width, 50)
+        formMonotonicStress.minimumSize = Dimension(container.preferredSize.width, 100)
+        formMonotonicStress.maximumSize = Dimension(container.preferredSize.width, 100)
 
         val subSessionMonotonicParameters = SessionPanel("MONOTONIC STRESS-STRAIN PARAMETERS AND CURVES - RAMBERG-OSGOOD MODEL", formMonotonicStress)
         container.add(subSessionMonotonicParameters)
@@ -155,6 +165,19 @@ class Deposit : JFrame() {
 
         val labeledTextFieldStrengthCoefficient  = LabeledTextFieldRow(formMonotonicStress, false,"Strength coefficient, K (Nmm-2)", 0, 0)
         val labeledTextFieldStrainHardening = LabeledTextFieldRow(formMonotonicStress, false, "Strain hardening exponent, n", 0, 1)
+        val buttonMonotonicStress = CustomButtonPanel(formMonotonicStress, "MonotonicProperties", 7, 2)
+
+        /*val submitButton = CustomButton("Submit")
+        submitButton.background = Color(82, 97, 147)
+        submitButton.border = BorderFactory.createCompoundBorder(
+            LineBorder(Color(19,54,96), 2), BorderFactory.createEmptyBorder(5, 15, 5, 5)
+        )
+        val buttonPanel = JPanel();
+        buttonPanel.background = Color.BLACK
+        buttonPanel.add(submitButton)
+
+        container.add(buttonPanel)
+        container.add(Box.createVerticalStrut(10))*/
 
         contentPane.add(container, BorderLayout.CENTER)
 
