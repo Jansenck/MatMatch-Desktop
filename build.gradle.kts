@@ -74,6 +74,7 @@ kotlin {
                 implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
                 implementation("org.apache.xmlgraphics:batik-svggen:1.14")
                 implementation("org.jfree:jfreesvg:3.3")
+                implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
             }
         }
         val jvmTest by getting

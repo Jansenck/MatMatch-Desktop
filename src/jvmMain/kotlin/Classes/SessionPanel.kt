@@ -10,11 +10,11 @@ import javax.swing.border.LineBorder
 class SessionPanel(subSessionTitle: String, form: JPanel) : JPanel(BorderLayout()) {
 
     init {
+        form.isVisible = false;
+
         preferredSize = Dimension(Int.MAX_VALUE, 35)
         minimumSize = Dimension(Int.MAX_VALUE, 35)
         maximumSize = Dimension(Int.MAX_VALUE, 35)
-
-        form.isVisible = false;
 
         val label = createTitleLabel(subSessionTitle)
         val toggleButton = createToggleButton()

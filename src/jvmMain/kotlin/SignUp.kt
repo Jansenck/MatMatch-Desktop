@@ -1,12 +1,9 @@
-import Classes.LabeledTextFieldForms
+
 import Classes.CustomButton
 import Classes.InputValidator
-
+import Classes.LabeledTextFieldForms
+import Services.PostUser
 import java.awt.*
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.GridBagConstraints
-import java.awt.GridBagLayout
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import javax.swing.JFrame
@@ -78,14 +75,20 @@ class SignUp : JFrame("SignUp") {
 
         val buttonDisabler = ButtonDisabler(signUpCustomButton, listOf(username.textField, password.textField, confirmPassword.textField))
         val signUpValidator = InputValidator(username.textField,password.textField, confirmPassword.textField);
+        val checkPasswordsMatch = PasswordsMatch(password.textField, confirmPassword.textField).isMatch();
 
         signUpCustomButton.addActionListener {
-            val checkPasswordsMatch = PasswordsMatch(password.textField, confirmPassword.textField).isMatch();
+
             if(signUpValidator.validateSignUp()){
-                JOptionPane.showMessageDialog(this, "Congratulations! Your account has been created successfully.")
-                val loginScreen = Login()
-                loginScreen.isVisible = true
-                isVisible = false
+                try {
+                    PostUser().execute(username.textField.text.toString(), password.textField.text.toString())
+                    JOptionPane.showMessageDialog(this, "Congratulations! Your account has been created successfully.")
+                    val loginScreen = Login()
+                    loginScreen.isVisible = true
+                    isVisible = false
+                } catch (e: IllegalStateException) {
+                    JOptionPane.showMessageDialog(this, "Login error, please try again.")
+                }
             }
         }
 

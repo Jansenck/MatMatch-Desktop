@@ -1,15 +1,13 @@
+
 import Classes.CustomButton
 import Classes.InputValidator
 import Classes.LabeledTextFieldForms
+import Services.Login
 import java.awt.*
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.GridBagConstraints
-import java.awt.GridBagLayout
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
-import javax.swing.*
 import javax.swing.JFrame
+import javax.swing.JOptionPane
 import javax.swing.JPanel
 class Login : JFrame("Login") {
 
@@ -84,9 +82,15 @@ class Login : JFrame("Login") {
             val validLoginInputs = InputValidator(usernameField, passwordField, passwordField).validateLogin();
 
             if (validLoginInputs) {
-                val homeScreen = Home()
-                homeScreen.isVisible = true
-                isVisible = false
+                try {
+                    Login().execute(usernameField.text, passwordField.text)
+                    val homeScreen = Home()
+                    homeScreen.isVisible = true
+                    isVisible = false
+                } catch (e: IllegalStateException) {
+                    println("Deu ruim ai")
+                }
+
             } else {
                 JOptionPane.showMessageDialog(this, "Login error, please try again")
             }

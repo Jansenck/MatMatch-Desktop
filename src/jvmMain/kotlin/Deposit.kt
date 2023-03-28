@@ -1,9 +1,5 @@
 
-import Classes.LabelSingle
-import Classes.LabeledTextFieldColumn
-import Classes.LabeledTextFieldRow
-import Classes.SessionMaterialsData
-import Classes.CustomButtonPanel
+import Classes.*
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.GridBagLayout
@@ -106,7 +102,7 @@ class Deposit : JFrame() {
         val labeledTextFieldNitrogen = LabeledTextFieldColumn(formTestedMaterial, false,"N", 5, 4)
         val nullSpace1 = LabeledTextFieldColumn(formTestedMaterial, false,"", 6, 4)
         val nullSpace2 = LabeledTextFieldColumn(formTestedMaterial, false,"", 7, 4)
-        val labeledTextFieldOtherMaterialTested = LabeledTextFieldColumn(formTestedMaterial, false,"Other", 2, 6)
+        val labeledTextFieldO = LabeledTextFieldColumn(formTestedMaterial, false,"Other", 2, 6)
         val buttonMaterialInfo = CustomButtonPanel(formTestedMaterial, "TestedMaterial", 7, 18)
 
         //TODO: acho que o erro nas dimensoes do button é causada porque nessas configurações ele tem sempre o mesmo tamanho da celula.
